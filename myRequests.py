@@ -12,10 +12,13 @@ header = Headers(
 
 def makeRequest(URL):
     try:
-        page = requests.get(URL, headers=header.generate())
-    except requests.exceptions.HTTPError as err:
+        s=time.time()
+        print("doing request for " + URL)
+        page = requests.get(URL, headers=header.generate(), timeout=10)
+    except requests.exceptions.Timeout as err:
         print(err)
         logger.log('error when doing request')
-        notify.sendEmail("", "Error when doing GET request for scan")
-        time.sleep(60)#
+        notify.sendEmail("", "Error when doing GET request for " + URL)
+        time.sleep(1)#
+        return False
     return page

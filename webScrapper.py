@@ -21,109 +21,126 @@ def checkVery(product, URL):
     logger.log("Checking Very for " + product)
 
     response = myRequests.makeRequest(URL)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    soup_string = str(soup)
-    allProducts = soup.find_all('dd', attrs={'class':'productPrice'})
-
-    for x in allProducts:
-        content = x.text
-        content = content.strip()
-        content = content.replace('£', '')
-
-        if (float(content) > 400.00): #item over £400 found ps5?
-            found = True
-
-    if (found):
-        logger.log(product + " is now available")
-        notify.sendEmail(product + " is now available on very.com", product + " is now available on very.com")
-        notify.playSound()
+    if (type(response) == type(False)):
+        logger.log("no response from server")
     else:
-        logger.log(product + " not found on very.com")
+        temp = response.text
+        print(temp)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        soup_string = str(soup)
+        print(soup_string)
+
+        allProducts = soup.find_all('dd', attrs={'class':'productPrice'})
+
+        for x in allProducts:
+            print("looping through listings")
+            content = x.text
+            content = content.strip()
+            content = content.replace('£', '')
+
+            if (float(content) > 400.00): #item over £400 found ps5?
+                found = True
+
+        if (found):
+            logger.log(product + " is now available")
+            notify.sendEmail(product + " is now available on very.com", product + " is now available on very.com")
+            notify.playSound()
+        else:
+            logger.log(product + " not found on very.com")
 
 def checkEbuyer(product, URL):
     found = False
     logger.log("Checking Ebuyer for " + product)
 
     response = myRequests.makeRequest(URL)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    soup_string = str(soup)
-    allProducts = soup.find_all('p', attrs={'class':'price'})
-
-    for x in allProducts:
-        content = x.text
-        content = content.strip()
-        content = content.replace('£', '')
-        content = content.replace(' ', '')
-        content = content.replace('\n', '')
-        content = content.replace('\xa0inc.vat', '')
-        content = content.replace('ex.vat', '')
-        if(content != ''):
-            if (float(content) > 400.00): #item over £400 found ps5?
-                found = True
-
-    if (found):
-        logger.log(product + " is now available")
-        notify.sendEmail(product + " is now available on ebuyer.com", product + " is now available on ebuyer.com")
-        notify.playSound()
+    if (type(response) == type(False)):
+        logger.log("no response from server")
     else:
-        logger.log(product + " not found on ebuyer.com")
+        soup = BeautifulSoup(response.content, 'html.parser')
+        soup_string = str(soup)
+        allProducts = soup.find_all('p', attrs={'class':'price'})
+
+        for x in allProducts:
+            content = x.text
+            content = content.strip()
+            content = content.replace('£', '')
+            content = content.replace(' ', '')
+            content = content.replace('\n', '')
+            content = content.replace('\xa0inc.vat', '')
+            content = content.replace('ex.vat', '')
+            if(content != ''):
+                if (float(content) > 400.00): #item over £400 found ps5?
+                    found = True
+
+        if (found):
+            logger.log(product + " is now available")
+            notify.sendEmail(product + " is now available on ebuyer.com", product + " is now available on ebuyer.com")
+            notify.playSound()
+        else:
+            logger.log(product + " not found on ebuyer.com")
 
 def checkEbuyerGPUS(product, URL):
     found = False
     logger.log("Checking Ebuyer for " + product)
 
     response = myRequests.makeRequest(URL)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    soup_string = str(soup)
-    allProducts = soup.find_all('p', attrs={'class':'price'})
-
-    for x in allProducts:
-        content = x.text
-        content = content.strip()
-        content = content.replace('£', '')
-        content = content.replace(' ', '')
-        content = content.replace('\n', '')
-        content = content.replace('\xa0inc.vat', '')
-        content = content.replace('ex.vat', '')
-        if(content != ''):
-            if (float(content) > 650.00): #item over £400 found ps5?
-                found = True
-
-    if (found):
-        logger.log(product + " is now available")
-        notify.sendEmail(product + " is now available on ebuyer.com", product + " is now available on ebuyer.com")
-        notify.playSound()
+    if (type(response) == type(False)):
+        logger.log("no response from server")
     else:
-        logger.log(product + " not found on ebuyer.com")
+        soup = BeautifulSoup(response.content, 'html.parser')
+        soup_string = str(soup)
+        allProducts = soup.find_all('p', attrs={'class':'price'})
+
+        for x in allProducts:
+            content = x.text
+            content = content.strip()
+            content = content.replace('£', '')
+            content = content.replace(' ', '')
+            content = content.replace('\n', '')
+            content = content.replace('\xa0inc.vat', '')
+            content = content.replace('ex.vat', '')
+            if(content != ''):
+                if (float(content) > 650.00): #item over £400 found ps5?
+                    found = True
+
+        if (found):
+            logger.log(product + " is now available")
+            notify.sendEmail(product + " is now available on ebuyer.com", product + " is now available on ebuyer.com")
+            notify.playSound()
+        else:
+            logger.log(product + " not found on ebuyer.com")
 
 def checkcurrys(product, URL):
     found = False
     logger.log("Checking currys for " + product)
 
     response = myRequests.makeRequest(URL)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    soup_string = str(soup)
-    allProducts = soup.find_all('strong', attrs={'class':'price'})
-    soup_string1 = str(allProducts)
-
-    for x in allProducts:
-        content = x.text
-        content = content.strip()
-        content = content.replace('£', '')
-        content = content.replace(' ', '')
-        content = content.replace('\n', '')
-        content = content.replace('\xa0inc.vat', '')
-        content = content.replace('ex.vat', '')
-        if(content != ''):
-            if (float(content) > 400.00): #item over £400 found ps5?
-                found = True
-
-    if (found):
-        logger.log(product + " is now available")
-        notify.sendEmail(product + " is now available on currys.com", product + " is now available on currys.com")
-        notify.playSound()
+    if (type(response) == type(False)):
+        logger.log("no response from server")
     else:
-        logger.log(product + " not found on currys.com")
+        soup = BeautifulSoup(response.content, 'html.parser')
+        soup_string = str(soup)
+        allProducts = soup.find_all('strong', attrs={'class':'price'})
+        soup_string1 = str(allProducts)
+
+        for x in allProducts:
+            content = x.text
+            content = content.strip()
+            content = content.replace('£', '')
+            content = content.replace(' ', '')
+            content = content.replace('\n', '')
+            content = content.replace('\xa0inc.vat', '')
+            content = content.replace('ex.vat', '')
+            if(content != ''):
+                if (float(content) > 400.00): #item over £400 found ps5?
+                    found = True
+
+        if (found):
+            logger.log(product + " is now available")
+            notify.sendEmail(product + " is now available on currys.com", product + " is now available on currys.com")
+            notify.playSound()
+        else:
+            logger.log(product + " not found on currys.com")
 
 while (True):
     checkVery('ps5', "https://www.very.co.uk/e/q/ps5.end?sort=price,0")
