@@ -16,6 +16,6 @@ def makeRequest(URL):
     except requests.exceptions.HTTPError as err:
         print(err)
         logger.log('error when doing request')
-        #notify.sendEmail("", "Error when doing GET request for scan")
+        notify.sendEmail("", "Error when doing GET request for scan")
         time.sleep(60)#
     return page
