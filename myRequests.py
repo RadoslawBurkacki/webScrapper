@@ -18,7 +18,6 @@ def makeRequest(URL):
     except requests.exceptions.Timeout as err:
         print(err)
         logger.log('error when doing request')
-        notify.sendEmail("", "Error when doing GET request for " + URL)
         time.sleep(1)#
         return False
     return page
