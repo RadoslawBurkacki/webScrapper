@@ -24,8 +24,6 @@ def checkVery(product, URL):
     if (type(response) == type(False)):
         logger.log("no response from server")
     else:
-        temp = response.text
-        print(temp)
         soup = BeautifulSoup(response.content, 'html.parser')
         soup_string = str(soup)
         print(soup_string)

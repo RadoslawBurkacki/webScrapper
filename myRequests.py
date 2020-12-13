@@ -15,6 +15,8 @@ def makeRequest(URL):
         s=time.time()
         print("doing request for " + URL)
         page = requests.get(URL, headers=header.generate(), timeout=10)
+        temp = page.text
+        print(temp)
     except requests.exceptions.Timeout as err:
         print(err)
         logger.log('error when doing request')
